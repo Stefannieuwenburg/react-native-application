@@ -1,20 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import Header from "./components/header/index.js"
+import Footer from "./components/footer/index.js"
+import Style from './components/style/index.js'
+import ArrayData from './components/data/index.js';
+import Image from "./components/image/index.js"
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  Text,
+  ImageBackground,
+} from 'react-native';
 
-export default function App() {
+
+const Item = ({itemName}) => (
+  <View style={Style.item}>
+    <Text style={Style.textItem}>{itemName}</Text>
+  </View>
+);
+
+const App = () => {
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={Style.container}>
+        <Header />
+        <ImageBackground source={Image} resizeMode="cover" style={Style.image}>
+      <FlatList
+        data={ArrayData}
+        renderItem={({item}) => <Item itemName={item.itemName} />}
+        keyExtractor={item => item.id}
+        />
+        <Text style={Style.p}>Hello</Text>
+      </ImageBackground>
+      <Footer />
+    </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+export default App;
